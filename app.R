@@ -8,7 +8,26 @@ library(shiny)
 library(rtweet)
 library(tidyverse)
 library(tidytext)
-library(bslib)
+library(httpuv)
+#library(bslib)
+
+## API keys and authentication  are necessary if you plan load the app online. 
+## You need a developer Twitter account and follow this instructions:
+## https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html
+
+## Store api keys (these are fake example values; replace with your own keys)
+api_key <- ""
+api_secret_key <- ""
+access_token <- ""
+access_token_secret <- ""
+
+## Authenticate via web browser
+token <- create_token(
+    app = "negatoscope_liker",
+    consumer_key = api_key,
+    consumer_secret = api_secret_key,
+    access_token = access_token,
+    access_secret = access_token_secret)
 
 # Define UI 
 ui <- fluidPage(
@@ -50,7 +69,7 @@ server <- function(input, output) {
    
     output$favoritesTable <- renderDataTable({
         
-        get_favorites(input$user, n = 3000)  %>% 
+        get_favorites(input$user, n = 3000, token = token)  %>% 
              select(status_id, created_at, text, name, screen_name) %>%
              mutate(Link = str_c("<a href='https://twitter.com/", screen_name, "/status/", status_id, "'>link</a>")) %>%
              select(-status_id) %>%
