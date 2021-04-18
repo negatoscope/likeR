@@ -9,6 +9,7 @@ library(rtweet)
 library(tidyverse)
 library(tidytext)
 library(httpuv)
+library(shinybusy)
 #library(bslib)
 
 ## API keys and authentication  are necessary if you plan load the app online. 
@@ -30,13 +31,20 @@ token <- create_token(
     access_secret = access_token_secret)
 
 # Define UI 
-ui <- fluidPage(
+ui <- fluidPage(title = "likeR",
+  
+    # Adds browser window icon
+    tags$head(
+        tags$link(rel = "icon", type = "image/png", sizes = "32x32", href = "/icon.png")),
     
     # You might want to add a theme, but some elements end out of place
     #theme = bs_theme(version = 4, bootswatch = "minty"),
     
+    # Just a loader
+    add_busy_gif(src = "https://media0.giphy.com/media/l31p1SkNXGz3l1nwwu/giphy.gif?cid=ecf05e476m3k585mg9216s5a8athfuk7ehmafik0uzemtyc7&rid=giphy.gif", height = 70, width = 70),
+    
     # Application title
-    titlePanel("likeR - Browse your Likes"),
+    headerPanel(h3("likeR - Browse your Likes", style = "color: #47D6E3")),
     
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
