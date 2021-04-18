@@ -1,6 +1,6 @@
 # likeR
 Twitter like browser
 
-https://luiseudave.shinyapps.io/likeR/
+https://negatoscope.shinyapps.io/likeR/
 
 Simple Shiny App to browse your Twitter likes.
